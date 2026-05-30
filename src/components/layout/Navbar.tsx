@@ -1,17 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LocaleSelector } from "@/components/ui/LocaleSelector";
 import styles from "./Navbar.module.css";
-
-const NAV_LINKS = [
-  { href: "/send", label: "Send a Gift" },
-  { href: "/dashboard", label: "Dashboard" },
-];
 
 export function Navbar() {
   const pathname = usePathname();
+  const t = useTranslations("Navbar");
+
+  const navLinks = [
+    { href: "/send", label: t("sendGift") },
+    { href: "/dashboard", label: t("dashboard") },
+  ];
 
   return (
     <header className={styles.header}>
@@ -22,7 +24,7 @@ export function Navbar() {
         </Link>
 
         <ul className={styles.links} role="list">
-          {NAV_LINKS.map(({ href, label }) => {
+          {navLinks.map(({ href, label }) => {
             const isActive = pathname === href || pathname.startsWith(href + "/");
             return (
               <li key={href}>
@@ -40,8 +42,11 @@ export function Navbar() {
             <ThemeToggle />
           </li>
           <li>
+            <LocaleSelector />
+          </li>
+          <li>
             <Link href="/auth/login" className="btn btn--primary btn--sm">
-              Sign In
+              {t("signIn")}
             </Link>
           </li>
         </ul>

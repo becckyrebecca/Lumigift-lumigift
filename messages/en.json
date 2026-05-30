@@ -1,0 +1,75 @@
+{
+  "Navbar": {
+    "sendGift": "Send a Gift",
+    "dashboard": "Dashboard",
+    "signIn": "Sign In"
+  },
+  "Dashboard": {
+    "title": "Your Gifts",
+    "sendGift": "Send Gift",
+    "tabs": {
+      "all": "All",
+      "pending": "Pending",
+      "claimed": "Claimed",
+      "expired": "Expired"
+    },
+    "empty": {
+      "title": "No gifts yet",
+      "description": "Brighten someone's day by sending a surprise cash gift!",
+      "button": "Send your first gift!"
+    },
+    "showingGifts": "Showing {start}–{end} of {total} gifts",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageOf": "Page {page} of {totalPages}"
+    },
+    "error": "Failed to load gifts. Please try again."
+  },
+  "Home": {
+    "hero": {
+      "badge": "Powered by Stellar & USDC",
+      "headline": "Cash gifts that unlock on a surprise date",
+      "subheadline": "Send money that stays completely hidden until the perfect moment. Birthdays, anniversaries, Valentine's Day — make every gift unforgettable.",
+      "howItWorks": "How it works"
+    },
+    "features": {
+      "title": "Why Lumigift?",
+      "escrow": {
+        "title": "Time-Locked Escrow",
+        "desc": "Funds are held in a Soroban smart contract — no one can touch them until the unlock date."
+      },
+      "stable": {
+        "title": "Stable Value",
+        "desc": "Gifts are denominated in USDC so the amount never changes between sending and claiming."
+      },
+      "fees": {
+        "title": "Near-Zero Fees",
+        "desc": "Stellar's high-speed network means more of your money reaches the recipient."
+      },
+      "ramp": {
+        "title": "NGN On/Off-Ramp",
+        "desc": "Pay in Naira via Paystack. Recipients can withdraw directly to their Nigerian bank account."
+      }
+    },
+    "steps": {
+      "title": "How it works",
+      "create": {
+        "title": "Create a gift",
+        "desc": "Enter the recipient's phone number, the amount in Naira, and choose a surprise unlock date."
+      },
+      "pay": {
+        "title": "Pay securely",
+        "desc": "Complete payment via Paystack or card. Funds are converted to USDC and locked on-chain."
+      },
+      "notify": {
+        "title": "Recipient gets notified",
+        "desc": "They receive an SMS telling them a gift is waiting — but the amount stays hidden."
+      },
+      "unlock": {
+        "title": "Gift unlocks on the day",
+        "desc": "At the exact date and time you chose, the gift is revealed and the recipient can claim it."
+      }
+    }
+  }
+}

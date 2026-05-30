@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { randomBytes } from "crypto";
+import createIntlMiddleware from "next-intl/middleware";
+
+const intlMiddleware = createIntlMiddleware({
+  locales: ["en"],
+  defaultLocale: "en",
+  localePrefix: "as-needed",
+});
 
 export function middleware(request: NextRequest) {
   const nonce = randomBytes(16).toString("base64");
@@ -10,12 +17,9 @@ export function middleware(request: NextRequest) {
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", cspHeader);
 
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  const response = intlMiddleware(request);
 
+  response.headers.set("x-nonce", nonce);
   response.headers.set("Content-Security-Policy", cspHeader);
 
   return response;

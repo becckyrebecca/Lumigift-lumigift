@@ -3,8 +3,8 @@
 import { GiftCardSkeleton } from "@/components/gift/GiftCardSkeleton";
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, useRouter, usePathname, Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { GiftCard } from "@/components/gift/GiftCard";
 import styles from "./page.module.css";
 import type { ApiResponse } from "@/types";
@@ -32,6 +32,7 @@ export default function DashboardPage() {
   const pathname = usePathname();
   const currentStatus = searchParams.get("status") || "all";
   const [page, setPage] = useState(1);
+  const t = useTranslations("Dashboard");
 
   // Reset page when status changes
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function DashboardPage() {
       <div className={styles.page}>
         <div className="container">
           <div className={styles.header}>
-            <h1 className={styles.title}>Your Gifts</h1>
+            <h1 className={styles.title}>{t("title")}</h1>
           </div>
           <div className={styles.grid}>
             <GiftCardSkeleton count={6} />
@@ -72,7 +73,7 @@ export default function DashboardPage() {
     return (
       <div className={styles.page}>
         <div className="container">
-          <p>Failed to load gifts. Please try again.</p>
+          <p>{t("error")}</p>
         </div>
       </div>
     );
@@ -81,19 +82,19 @@ export default function DashboardPage() {
   const { data: gifts, total, totalPages, counts } = data!;
 
   const tabs = [
-    { id: "all", label: "All", count: counts.all },
-    { id: "pending", label: "Pending", count: counts.pending },
-    { id: "claimed", label: "Claimed", count: counts.claimed },
-    { id: "expired", label: "Expired", count: counts.expired },
+    { id: "all", label: t("tabs.all"), count: counts.all },
+    { id: "pending", label: t("tabs.pending"), count: counts.pending },
+    { id: "claimed", label: t("tabs.claimed"), count: counts.claimed },
+    { id: "expired", label: t("tabs.expired"), count: counts.expired },
   ];
 
   return (
     <div className={styles.page}>
       <div className="container">
         <div className={styles.header}>
-          <h1 className={styles.title}>Your Gifts</h1>
+          <h1 className={styles.title}>{t("title")}</h1>
           <Link href="/send" className="btn btn--primary btn--sm">
-            Send Gift
+            {t("sendGift")}
           </Link>
         </div>
 
@@ -130,18 +131,22 @@ export default function DashboardPage() {
                 <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5" />
               </svg>
             </div>
-            <h2 className={styles.emptyTitle}>No gifts yet</h2>
+            <h2 className={styles.emptyTitle}>{t("empty.title")}</h2>
             <p className={styles.emptyDescription}>
-              Brighten someone&apos;s day by sending a surprise cash gift!
+              {t("empty.description")}
             </p>
             <Link href="/send" className="btn btn--primary">
-              Send your first gift!
+              {t("empty.button")}
             </Link>
           </div>
         ) : (
           <>
             <p className={styles.count}>
-              Showing {(page - 1) * DEFAULT_LIMIT + 1}–{Math.min(page * DEFAULT_LIMIT, total)} of {total} gifts
+              {t("showingGifts", {
+                start: (page - 1) * DEFAULT_LIMIT + 1,
+                end: Math.min(page * DEFAULT_LIMIT, total),
+                total: total,
+              })}
             </p>
             <div className={styles.grid}>
               {gifts.map((gift) => (
@@ -154,15 +159,15 @@ export default function DashboardPage() {
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
               >
-                Previous
+                {t("pagination.previous")}
               </button>
-              <span>Page {page} of {totalPages}</span>
+              <span>{t("pagination.pageOf", { page, totalPages })}</span>
               <button
                 className="btn btn--secondary"
                 onClick={() => setPage((p) => p + 1)}
                 disabled={page >= totalPages}
               >
-                Next
+                {t("pagination.next")}
               </button>
             </div>
           </>
